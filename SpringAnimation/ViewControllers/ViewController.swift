@@ -42,9 +42,9 @@ final class ViewController: UIViewController {
     private func applyAnimation() {
         presetNameLabel.text = randomAnimation.preset
         curveNameLabel.text = randomAnimation.curve
-        forceValueLabel.text = String(format: "%.2f", randomAnimation.force)
-        durationValueLabel.text = String(format: "%.2f", randomAnimation.duration)
-        delayValueLabel.text = String(format: "%.2f", randomAnimation.delay)
+        forceValueLabel.text = getString(from: randomAnimation.force)
+        durationValueLabel.text = getString(from: randomAnimation.duration)
+        delayValueLabel.text = getString(from: randomAnimation.delay)
         springAnimationView.animation = randomAnimation.preset
         
         springAnimationView.animation = randomAnimation.preset
@@ -55,11 +55,14 @@ final class ViewController: UIViewController {
     private func setupLabels() {
         presetNameLabel.text = randomAnimation.preset
         curveNameLabel.text = randomAnimation.curve
-        forceValueLabel.text = String(format: "%.2f", randomAnimation.force)
-        durationValueLabel.text = String(format: "%.2f", randomAnimation.duration)
-        delayValueLabel.text = String(format: "%.2f", randomAnimation.delay)
+        forceValueLabel.text = getString(from: randomAnimation.force)
+        durationValueLabel.text = getString(from: randomAnimation.duration)
+        delayValueLabel.text = getString(from: randomAnimation.duration)
     }
     
+    private func getString(from value: Double) -> String {
+        String(format: "%.2f", value)
+    }
     
 }
 
