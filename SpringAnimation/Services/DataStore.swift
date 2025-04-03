@@ -7,8 +7,8 @@
 
 import SpringAnimation
 
-final class Data {
-    static let shared = Data()
+final class DataStore {
+    static let shared = DataStore()
     
     let animations = AnimationPreset.allCases
     let curves = AnimationCurve.allCases

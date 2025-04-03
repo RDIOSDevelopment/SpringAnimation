@@ -11,58 +11,38 @@ import SpringAnimation
 
 final class ViewController: UIViewController {
     @IBOutlet var springAnimationView: SpringView!
+    @IBOutlet var animationLabel: SpringLabel! {
+        didSet {
+            animationLabel.text = randomAnimation.description
+        }
+    }
     
-    @IBOutlet var presetNameLabel: UILabel!
-    @IBOutlet var curveNameLabel: UILabel!
-    @IBOutlet var forceValueLabel: UILabel!
-    @IBOutlet var durationValueLabel: UILabel!
-    @IBOutlet var delayValueLabel: UILabel!
     
     private var randomAnimation = Animation.randomAnimation
     
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setupLabels()
-    }
-
     @IBAction func startSpringAnimation(_ sender: SpringButton) {
-        applyAnimation()
-        springAnimationView.animateNext { [unowned self] in
-            applyAnimation()
+        animationLabel.animation = randomAnimation.preset
+        animationLabel.animate()
+        animationLabel.text = randomAnimation.description
+        
+        animationLabel.animateNext { [unowned self] in
+            animationLabel.animation = randomAnimation.preset
+            animationLabel.animate()
+            
+            springAnimationView.animation = randomAnimation.preset
+            springAnimationView.curve = randomAnimation.curve
+            springAnimationView.duration = randomAnimation.duration
+            springAnimationView.force = randomAnimation.force
+            springAnimationView.delay = randomAnimation.delay
+            springAnimationView.animate()
+            
             randomAnimation = Animation.randomAnimation
-            sender.setTitle("Run \(randomAnimation.preset)", for: .normal)
+            sender.setTitle(randomAnimation.preset, for: .normal)
+            
         }
         
         
-    }
-    
-    private func applyAnimation() {
-        presetNameLabel.text = randomAnimation.preset
-        curveNameLabel.text = randomAnimation.curve
-        forceValueLabel.text = getString(from: randomAnimation.force)
-        durationValueLabel.text = getString(from: randomAnimation.duration)
-        delayValueLabel.text = getString(from: randomAnimation.delay)
-        springAnimationView.animation = randomAnimation.preset
-        
-        springAnimationView.animation = randomAnimation.preset
-        springAnimationView.animate()
         
     }
-    
-    private func setupLabels() {
-        presetNameLabel.text = randomAnimation.preset
-        curveNameLabel.text = randomAnimation.curve
-        forceValueLabel.text = getString(from: randomAnimation.force)
-        durationValueLabel.text = getString(from: randomAnimation.duration)
-        delayValueLabel.text = getString(from: randomAnimation.duration)
-    }
-    
-    private func getString(from value: Double) -> String {
-        String(format: "%.2f", value)
-    }
-    
 }
-
